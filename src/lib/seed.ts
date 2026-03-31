@@ -21,12 +21,25 @@ async function seedUser(name: string, email: string, password: string, role: str
     process.exit(1)
   }
   await db.update(user).set({ role }).where(eq(user.id, u.id))
-  console.log(`Role set to ${role}. Password: ${password}`)
+  console.log(`Role set to ${role}.`)
 }
 
 async function seed() {
-  await seedUser("Admin", "admin@cic.local", "admin1234", "admin")
-  await seedUser("Test Driver", "driver@cic.local", "driver1234", "driver")
+  const isProd = process.env.NODE_ENV === "production"
+  const adminEmail = process.env.ADMIN_EMAIL
+  const adminPassword = process.env.ADMIN_PASSWORD
+
+  if (adminEmail && adminPassword) {
+    console.log("Seeding admin from environment variables...")
+    await seedUser(process.env.ADMIN_NAME || "Admin", adminEmail, adminPassword, "admin")
+  } else if (!isProd) {
+    console.log("Seeding default development users...")
+    await seedUser("Admin", "admin@cic.local", "admin1234", "admin")
+    await seedUser("Test Driver", "driver@cic.local", "driver1234", "driver")
+  } else {
+    console.log("Production environment detected but ADMIN_EMAIL and ADMIN_PASSWORD are not set. Skipping seed.")
+  }
+
   process.exit(0)
 }
 
