@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cardboard is Cool (CIC) – Route & Collection Management
 
-## Getting Started
+A modern, mobile-first logistics and inventory tracking system designed for specialized recycling collection (e.g., bin and dumpster services). 
 
-First, run the development server:
+This platform streamlines the workflow for drivers on the road and provides administrators with oversight of users and service locations.
 
+## 🚀 Key Features
+
+### For Drivers (Mobile Optimized)
+- **Active Route Tracking:** Start and stop collection routes with a single tap.
+- **Detailed Stop Logging:** Record critical metrics for every collection:
+  - **Fullness %:** Track how much material was collected.
+  - **Vehicle Capacity:** Real-time feedback on remaining van/truck space.
+- **Route History:** View historical performance and stop counts.
+- **Location Directory:** Quick access to assigned service points and addresses.
+
+### For Administrators
+- **Location Management:** Define and organize "Bin" and "Dumpster" locations.
+- **User Control:** Manage driver accounts and system access roles.
+- **System Overview:** Monitor collection efficiency through the data dashboard.
+
+## 🛠️ Technical Stack
+
+- **Framework:** [Next.js 16 (App Router)](https://nextjs.org/)
+- **Database:** PostgreSQL with [Drizzle ORM](https://orm.drizzle.team/)
+- **Authentication:** [Better Auth](https://www.better-auth.com/) (Role-based access control)
+- **Styling:** Tailwind CSS 4 & Custom CSS (Industrial "Kraft/Lime" Aesthetic)
+- **Icons:** Lucide React
+
+## 🏁 Getting Started
+
+### 1. Prerequisites
+- Node.js >= 24
+- PostgreSQL instance
+
+### 2. Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Environment Setup
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/cic
+BETTER_AUTH_SECRET=your_secret_here
+BETTER_AUTH_URL=http://localhost:3000
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Database Setup
+```bash
+# Push schema to database
+npx drizzle-kit push
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# (Optional) Seed the database with initial locations/users
+npm run seed
+```
 
-## Learn More
+### 5. Run Development Server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏗️ Project Structure
+- `src/app`: Next.js pages and API routes (grouped by `(admin)`, `(driver)`, and `(auth)`).
+- `src/db`: Database schema definitions and Drizzle configuration.
+- `src/components`: UI components organized by feature (routes, locations, auth).
+- `src/lib`: Core utilities for authentication, database connection, and helpers.
