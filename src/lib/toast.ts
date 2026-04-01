@@ -1,3 +1,9 @@
 import { Toast } from "@base-ui/react/toast"
 
-export const toast = Toast.createToastManager()
+const manager = Toast.createToastManager()
+
+export const toast = {
+  ...manager,
+  success: (title: string) => manager.add({ title, type: "success" }),
+  error: (title: string) => manager.add({ title, type: "error" }),
+}

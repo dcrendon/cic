@@ -1,14 +1,18 @@
+"use client"
+import { SignOutButton } from "@/components/auth/SignOutButton"
+import Link from "next/link"
+
 interface HeaderProps {
-  title: string
   right?: React.ReactNode
 }
 
-export function Header({ title, right }: HeaderProps) {
+export function Header({ right }: HeaderProps) {
   return (
     <header style={{
-      padding: "1rem 1.25rem",
-      backgroundColor: "var(--bg-1)",
+      backgroundColor: "var(--bg-2)",
       borderBottom: "1px solid var(--bg-4)",
+      padding: "0 1.25rem",
+      height: "3.5rem",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -16,18 +20,23 @@ export function Header({ title, right }: HeaderProps) {
       top: 0,
       zIndex: 40,
     }}>
-      <h1 style={{
-        fontFamily: "Barlow Condensed, sans-serif",
-        fontWeight: 800,
-        fontSize: "1.5rem",
-        color: "var(--text-1)",
-        margin: 0,
-        letterSpacing: "0.02em",
-        textTransform: "uppercase",
-      }}>
-        {title}
-      </h1>
-      {right && <div>{right}</div>}
+      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <Link href="/dashboard" style={{
+          fontFamily: "Barlow Condensed, sans-serif",
+          fontWeight: 900,
+          fontSize: "1.5rem",
+          color: "var(--kraft)",
+          textDecoration: "none",
+          letterSpacing: "0.02em",
+        }}>
+          CIC <span style={{ fontSize: "0.7rem", color: "var(--text-3)", fontFamily: "IBM Plex Mono, monospace", fontWeight: 400 }}>DRIVER</span>
+        </Link>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        {right && <div>{right}</div>}
+        <SignOutButton variant="text" />
+      </div>
     </header>
   )
 }

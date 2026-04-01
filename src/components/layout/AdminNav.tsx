@@ -2,20 +2,16 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth-client"
+import { SignOutButton } from "@/components/auth/SignOutButton"
 
 const navLinks = [
   { href: "/admin/users", label: "Users" },
+  { href: "/admin/locations", label: "Locations" },
   { href: "/admin/routes", label: "Routes" },
 ]
 
 export function AdminNav() {
   const pathname = usePathname()
-  const router = useRouter()
-
-  async function handleSignOut() {
-    await authClient.signOut()
-    router.push("/login")
-  }
 
   return (
     <nav style={{
@@ -62,20 +58,7 @@ export function AdminNav() {
         })}
       </div>
 
-      <button onClick={handleSignOut} style={{
-        fontFamily: "IBM Plex Mono, monospace",
-        fontSize: "0.75rem",
-        textTransform: "uppercase",
-        letterSpacing: "0.05em",
-        color: "var(--text-3)",
-        backgroundColor: "transparent",
-        border: "1px solid var(--bg-4)",
-        borderRadius: "0.375rem",
-        padding: "0.375rem 0.75rem",
-        cursor: "pointer",
-      }}>
-        Sign Out
-      </button>
+      <SignOutButton variant="text" />
     </nav>
   )
 }

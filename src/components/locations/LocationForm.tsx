@@ -1,36 +1,53 @@
 "use client"
 import { useState } from "react"
+import { toast } from "@/lib/toast"
+
+interface Loc {
+  id: string
+  name: string
+  address: string | null
+  collectionType: "bin" | "dumpster"
+}
 
 interface Props {
+  initialData?: Loc
   onDone: () => void
   onCancel: () => void
 }
 
-export function CreateLocationForm({ onDone, onCancel }: Props) {
-  const [name, setName] = useState("")
-  const [address, setAddress] = useState("")
-  const [type, setType] = useState<"bin" | "dumpster">("bin")
+export function LocationForm({ initialData, onDone, onCancel }: Props) {
+  const [name, setName] = useState(initialData?.name || "")
+  const [address, setAddress] = useState(initialData?.address || "")
+  const [type, setType] = useState<"bin" | "dumpster">(initialData?.collectionType || "bin")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  const isEditing = !!initialData
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError("")
-    const res = await fetch("/api/locations", {
-      method: "POST",
+
+    const url = isEditing ? `/api/locations/${initialData.id}` : "/api/locations"
+    const method = isEditing ? "PATCH" : "POST"
+
+    const res = await fetch(url, {
+      method,
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         name,
-        address: address || undefined,
+        address: address || null,
         collectionType: type,
       }),
     })
+
     if (res.ok) {
+      toast.success(isEditing ? "Location updated" : "Location created")
       onDone()
     } else {
-      const { error: err } = await res.json()
-      setError(err)
+      const data = await res.json()
+      setError(data.error || "Something went wrong")
       setLoading(false)
     }
   }
@@ -51,7 +68,7 @@ export function CreateLocationForm({ onDone, onCancel }: Props) {
         marginBottom: "1rem",
         textTransform: "uppercase",
       }}>
-        New Location
+        {isEditing ? "Edit Location" : "New Location"}
       </div>
 
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>

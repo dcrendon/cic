@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cic}
       POSTGRES_DB: ${POSTGRES_DB:-cic}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /srv/perso/cic/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cic}"]
       interval: 5s
@@ -16,14 +16,11 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "${APP_PORT:-3847}:3000"
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-cic}:${POSTGRES_PASSWORD:-cic}@postgres:5432/${POSTGRES_DB:-cic}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
-      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:${APP_PORT:-3847}}
     depends_on:
       postgres:
         condition: service_healthy
-
-volumes:
-  postgres_data:

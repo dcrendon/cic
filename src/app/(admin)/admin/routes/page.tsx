@@ -98,7 +98,7 @@ export default async function AdminRoutesPage() {
             <span style={{ fontFamily: "Barlow Condensed, sans-serif", fontWeight: 800, fontSize: "1.25rem", color: "var(--text-1)", textAlign: "center" }}>
               {route.stopCount}
             </span>
-            <Link href={`/routes/${route.id}`} style={{
+            <Link href={`/admin/routes/${route.id}`} style={{
               fontFamily: "IBM Plex Mono, monospace",
               fontSize: "0.7rem",
               color: "var(--kraft)",

@@ -40,8 +40,19 @@ export default async function RouteDetailPage({
 
   return (
     <div>
-      <Header title="Route Detail" />
+      <Header />
       <main style={{ padding: "1.25rem" }}>
+        <h1 style={{
+          fontFamily: "Barlow Condensed, sans-serif",
+          fontWeight: 900,
+          fontSize: "2rem",
+          color: "var(--text-1)",
+          marginBottom: "1.5rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.03em",
+        }}>
+          Route Detail
+        </h1>
         {/* Summary card */}
         <div style={{
           backgroundColor: "var(--bg-2)",

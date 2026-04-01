@@ -41,6 +41,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# database
+/postgres-data
+/postgres-dev-data
+
 # typescript
 *.tsbuildinfo
 # but don't ignore next-env.d.ts

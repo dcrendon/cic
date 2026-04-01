@@ -24,8 +24,19 @@ export default async function RoutesPage() {
 
   return (
     <div>
-      <Header title="My Routes" />
+      <Header />
       <main style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <h1 style={{
+          fontFamily: "Barlow Condensed, sans-serif",
+          fontWeight: 900,
+          fontSize: "2rem",
+          color: "var(--text-1)",
+          marginBottom: "1rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.03em",
+        }}>
+          My Routes
+        </h1>
         {allRoutes.length === 0 && (
           <p style={{
             color: "var(--text-3)",

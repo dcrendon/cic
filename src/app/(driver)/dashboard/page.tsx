@@ -52,8 +52,19 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <Header title="Dashboard" />
+      <Header />
       <main style={{ padding: "1.25rem" }}>
+        <h1 style={{
+          fontFamily: "Barlow Condensed, sans-serif",
+          fontWeight: 900,
+          fontSize: "2rem",
+          color: "var(--text-1)",
+          marginBottom: "1.5rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.03em",
+        }}>
+          Dashboard
+        </h1>
         {/* Stats bar */}
         <div style={{
           display: "flex",
